@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+​
+<head>
+  <meta charset="UTF-8">
+  <title>Hot Restaurant</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+​
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Hot Restaurant</h1>
+      <h3>Get your spot fast!</h3>
+      <hr>
+      <a href="/reserve"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>Make Reservation</button></a>
+      <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>Home</button></a>    
+    </div>
+
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Current Reservations</strong></h3>
+          </div>
+        <div id="reservations">
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3><strong>Wait List</strong></h3>
+        </div>
+        <div id="waitList">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+  // $("#search-btn").on("click", () => {
+    // $("#stats").empty();
+  // let searchedCharacter = $("#character-search").val().trim();
+  // searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+      $.get("/api/reservations/", (data) => {
+        data.forEach(element=> {
+          console.log(element);
+          let newDiv = $("<div>")
+          newDiv.addClass('card-body')
+          let newName= $("<div>").text(`Name: ${element.name}`)
+          let newPhoneNumber = $("<div>").text(`Phone Number: ${element.phoneNumber}`)
+          let newEmail = $("<div>").text(`Email: ${element.email}`)
+          let newUniqueId = $("<div>").text(`Id: ${element.uniqueId}`)
+          newDiv.append(newName, newPhoneNumber, newEmail, newUniqueId)
+          $("#reservations").append(newDiv);
+    })
+  })
+
+  $.get("/api/waitlist/", (data) => {
+        data.forEach(element=> {
+          console.log(element);
+          let newDiv = $("<div>")
+          newDiv.addClass('card-body')
+          let newName= $("<div>").text(`Name: ${element.name}`)
+          let newPhoneNumber = $("<div>").text(`Phone Number: ${element.phoneNumber}`)
+          let newEmail = $("<div>").text(`Email: ${element.email}`)
+          let newUniqueId = $("<div>").text(`Id: ${element.uniqueId}`)
+          newDiv.append(newName, newPhoneNumber, newEmail, newUniqueId)
+          $("#waitList").append(newDiv);
+    })
+  })
+  </script>
+  </body>
+</html>
